@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f28c00">
+<meta name="description" content="Agendamento de serviços elétricos - Cleberson Eletricista">
+<title>Cleberson Eletricista | Agendamento</title>
+<style>
+:root{--blue:#234f60;--blue2:#163c4b;--orange:#f28c00;--yellow:#ffc900;--white:#fff;--bg:#f4f7f8;--text:#17313b;--muted:#687b82;}
+*{box-sizing:border-box} body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
+.app{max-width:520px;margin:auto;min-height:100vh;background:#fff;box-shadow:0 0 30px #0001}
+.hero{background:linear-gradient(145deg,var(--blue2),var(--blue));padding:22px 18px 18px;color:#fff;position:relative;overflow:hidden}
+.hero:after{content:"⚡";position:absolute;right:-10px;top:-25px;font-size:130px;color:#ffc90022;transform:rotate(10deg)}
+.logo{width:100%;max-height:170px;object-fit:contain;object-position:center;border-radius:16px;background:#234f60}
+h1{font-size:26px;margin:18px 0 5px;position:relative;z-index:1} .sub{margin:0;color:#e6f0f3;position:relative;z-index:1}
+.content{padding:18px} .card{border:1px solid #e2e9eb;border-radius:18px;padding:16px;margin-bottom:14px;background:#fff}
+.section-title{font-size:18px;font-weight:800;margin:0 0 12px} label{font-size:13px;font-weight:700;display:block;margin:10px 0 6px}
+input,select,textarea{width:100%;padding:13px;border:1px solid #ccd9dd;border-radius:11px;font-size:16px;outline:none;background:#fff}
+input:focus,select:focus,textarea:focus{border-color:var(--orange);box-shadow:0 0 0 3px #f28c0020}
+.services{display:grid;grid-template-columns:1fr 1fr;gap:9px} .service{border:1px solid #d8e2e5;border-radius:12px;padding:12px;cursor:pointer;font-weight:700;font-size:14px;background:#fafcfc}
+.service.active{border:2px solid var(--orange);background:#fff7ea} .service small{display:block;color:var(--muted);font-weight:400;margin-top:4px}
+.btn{width:100%;border:0;border-radius:13px;padding:15px;font-size:17px;font-weight:800;cursor:pointer}
+.primary{background:var(--orange);color:#fff} .secondary{background:var(--blue);color:#fff;margin-top:9px}
+.summary{background:#f6fafb;border-radius:13px;padding:13px;line-height:1.6;font-size:14px}
+.note{font-size:12px;color:var(--muted);margin-top:9px}
+.footer{padding:10px 18px 25px;text-align:center;color:var(--muted);font-size:12px}
+.success{display:none;text-align:center;padding:22px 8px} .success .icon{font-size:54px}
+.badge{display:inline-block;background:#ffc900;color:#17313b;font-weight:900;border-radius:20px;padding:5px 10px;font-size:11px;margin-top:10px}
+@media(max-width:390px){.services{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="hero">
+  <img class="logo" src="logo.jpg" alt="Cleberson Eletricista">
+  <span class="badge">AGENDAMENTO ONLINE</span>
+  <h1>Agende seu serviço elétrico</h1>
+  <p class="sub">Instalações e manutenções elétrica residencial e predial.</p>
+</header>
+
+<main class="content" id="formArea">
+  <div class="card">
+    <p class="section-title">1. Escolha o serviço</p>
+    <div class="services" id="services">
+      <div class="service" data-service="Instalação elétrica">⚡ Instalação elétrica<small>Novos pontos e circuitos</small></div>
+      <div class="service" data-service="Manutenção elétrica">🔧 Manutenção elétrica<small>Correções e reparos</small></div>
+      <div class="service" data-service="Tomadas e interruptores">🔌 Tomadas e interruptores<small>Instalação ou troca</small></div>
+      <div class="service" data-service="Iluminação">💡 Iluminação<small>Luminárias, pendentes e LED</small></div>
+      <div class="service" data-service="Chuveiro elétrico">🚿 Chuveiro elétrico<small>Instalação e manutenção</small></div>
+      <div class="service" data-service="Outro serviço">➕ Outro serviço<small>Descreva sua necessidade</small></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <p class="section-title">2. Data e horário</p>
+    <label for="date">Data desejada</label>
+    <input id="date" type="date">
+    <label for="time">Horário desejado</label>
+    <select id="time">
+      <option value="">Selecione</option>
+      <option>08:00</option><option>09:00</option><option>10:00</option><option>11:00</option>
+      <option>13:00</option><option>14:00</option><option>15:00</option><option>16:00</option><option>17:00</option>
+    </select>
+    <div class="note">O horário fica sujeito à confirmação da agenda.</div>
+  </div>
+
+  <div class="card">
+    <p class="section-title">3. Seus dados</p>
+    <label for="name">Nome completo</label>
+    <input id="name" placeholder="Digite seu nome">
+    <label for="phone">WhatsApp</label>
+    <input id="phone" type="tel" placeholder="(14) 99999-9999">
+    <label for="address">Endereço do serviço</label>
+    <input id="address" placeholder="Rua, número e bairro">
+    <label for="details">Detalhes do serviço</label>
+    <textarea id="details" rows="3" placeholder="Conte brevemente o que precisa ser feito"></textarea>
+  </div>
+
+  <div class="card">
+    <p class="section-title">Resumo</p>
+    <div class="summary" id="summary">Escolha um serviço e informe data e horário.</div>
+  </div>
+
+  <button class="btn primary" id="book">Solicitar agendamento</button>
+  <button class="btn secondary" id="whats">Falar pelo WhatsApp</button>
+</main>
+
+<section class="success" id="success">
+  <div class="icon">✅</div>
+  <h2>Solicitação preparada!</h2>
+  <p>Seu pedido será enviado pelo WhatsApp para confirmação.</p>
+  <button class="btn primary" id="send">Enviar no WhatsApp</button>
+  <button class="btn secondary" id="back">Voltar e editar</button>
+</section>
+
+<footer class="footer">Cleberson Eletricista • Atendimento residencial e predial</footer>
+</div>
+
+<script>
+const WA="5514996624854";
+const services=[...document.querySelectorAll('.service')];
+let selected="";
+services.forEach(el=>el.onclick=()=>{services.forEach(x=>x.classList.remove('active'));el.classList.add('active');selected=el.dataset.service;update();});
+const ids=['date','time','name','phone','address','details'];
+ids.forEach(id=>document.getElementById(id).addEventListener('input',update));
+function brDate(v){if(!v)return "não informada";let [y,m,d]=v.split('-');return `${d}/${m}/${y}`;}
+function update(){
+ const d=document.getElementById('date').value,t=document.getElementById('time').value,n=document.getElementById('name').value;
+ document.getElementById('summary').innerHTML=`<b>Serviço:</b> ${selected||"não selecionado"}<br><b>Data:</b> ${brDate(d)}<br><b>Horário:</b> ${t||"não informado"}<br><b>Cliente:</b> ${n||"não informado"}`;
+}
+function message(){
+ const g=id=>document.getElementById(id).value.trim();
+ return `⚡ *AGENDAMENTO — CLEBERSON ELETRICISTA*%0A%0A*Serviço:* ${selected||"Não informado"}%0A*Data:* ${brDate(g('date'))}%0A*Horário:* ${g('time')||"Não informado"}%0A%0A*Cliente:* ${g('name')||"Não informado"}%0A*WhatsApp:* ${g('phone')||"Não informado"}%0A*Endereço:* ${g('address')||"Não informado"}%0A*Detalhes:* ${g('details')||"Não informado"}`;
+}
+document.getElementById('book').onclick=()=>{
+ if(!selected)return alert("Selecione um serviço.");
+ if(!document.getElementById('date').value || !document.getElementById('time').value)return alert("Informe a data e o horário desejados.");
+ if(!document.getElementById('name').value.trim() || !document.getElementById('phone').value.trim())return alert("Informe seu nome e WhatsApp.");
+ document.getElementById('formArea').style.display='none';document.getElementById('success').style.display='block';
+};
+document.getElementById('send').onclick=()=>window.open(`https://wa.me/${WA}?text=${message()}`,'_blank');
+document.getElementById('whats').onclick=()=>window.open(`https://wa.me/${WA}?text=Olá! Gostaria de solicitar um orçamento/agendamento com o Cleberson Eletricista.`,'_blank');
+document.getElementById('back').onclick=()=>{document.getElementById('success').style.display='none';document.getElementById('formArea').style.display='block';};
+const today=new Date();today.setMinutes(today.getMinutes()-today.getTimezoneOffset());document.getElementById('date').min=today.toISOString().slice(0,10);
+update();
+</script><script>if('serviceWorker' in navigator) navigator.serviceWorker.register('./service-worker.js');</script>
+</body>
+</html>
