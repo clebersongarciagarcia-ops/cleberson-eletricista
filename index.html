@@ -57,9 +57,11 @@ main{padding:15px}.screen{display:none}.screen.active{display:block}.title{font-
     </button>
 
     <button class="btn blue" onclick="show('novo')" style="width:100%;margin:8px 0;padding:15px">
-      ➕ Novo atendimento
+     ➕ Novo atendimento
     </button>
-
+<button class="btn blue" onclick="show('orcamentos')" style="width:100%;margin:8px 0;padding:15px">
+  💰 Orçamentos
+</button>
     <button class="btn" onclick="show('acesso')" style="width:100%;margin:15px 0 0;padding:13px">
       ↩️ Voltar
     </button>
@@ -99,7 +101,31 @@ main{padding:15px}.screen{display:none}.screen.active{display:block}.title{font-
 <section id="agenda" class="screen"><div class="title">Agenda</div><div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><button class="btn ghost" id="pm">‹</button><b id="mt"></b><button class="btn ghost" id="nm">›</button></div><div class="calendar" id="cal" style="margin-top:10px"></div></div><div class="sub" id="dl"></div><div id="day"></div></section>
 <section id="lembretes" class="screen"><div class="title">🔔 Lembretes</div><div id="lembretes-lista" class="card">Carregando próximos atendimentos...</div></section>
   <section id="clientes" class="screen"><div class="title">Clientes</div><div class="search"><input id="q" placeholder="Buscar por nome ou WhatsApp"><button class="btn blue" onclick="loadClients()">Buscar</button></div><div id="clients"></div></section>
-<section id="cliente" class="screen"> <div class="title">👤 Área do Cliente</div> <div class="card"> <b>Consulte seus atendimentos</b> <p>Informe o WhatsApp usado no agendamento.</p> <input id="cliente-phone" placeholder="WhatsApp com DDD"> <button class="btn blue" onclick="consultarCliente()" style="width:100%;margin-top:10px">🔎 Consultar meus atendimentos</button> <div id="cliente-result" style="margin-top:15px"></div> </div> </section>  <section id="novo" class="screen"> class="screen"><div class="title">Novo agendamento</div><div class="notice">Este agendamento será salvo no banco de dados online e ficará disponível no painel.</div>
+<section id="orcamentos" class="screen">
+  <div class="title">💰 Orçamentos</div>
+
+  <div class="card">
+    <h3>Novo orçamento</h3>
+    <p>Crie e organize os orçamentos dos seus clientes.</p>
+
+    <label>Cliente</label>
+    <input id="orc-cliente" placeholder="Nome do cliente">
+
+    <label>WhatsApp</label>
+    <input id="orc-phone" placeholder="WhatsApp com DDD">
+
+    <label>Descrição do serviço</label>
+    <textarea id="orc-servico" placeholder="Descreva o serviço"></textarea>
+
+    <label>Valor</label>
+    <input id="orc-valor" placeholder="R$ 0,00">
+
+    <button class="btn blue" style="width:100%;margin-top:12px">
+      💾 Salvar orçamento
+    </button>
+  </div>
+</section>
+  <section id="cliente" class="screen"> <div class="title">👤 Área do Cliente</div> <div class="card"> <b>Consulte seus atendimentos</b> <p>Informe o WhatsApp usado no agendamento.</p> <input id="cliente-phone" placeholder="WhatsApp com DDD"> <button class="btn blue" onclick="consultarCliente()" style="width:100%;margin-top:10px">🔎 Consultar meus atendimentos</button> <div id="cliente-result" style="margin-top:15px"></div> </div> </section>  <section id="novo" class="screen"> class="screen"><div class="title">Novo agendamento</div><div class="notice">Este agendamento será salvo no banco de dados online e ficará disponível no painel.</div>
 <div class="card"><b>Serviço</b><div class="grid" id="svcs" style="margin-top:9px"><div class="svc" data-v="Instalação elétrica">⚡ Instalação elétrica</div><div class="svc" data-v="Manutenção elétrica">🔧 Manutenção elétrica</div><div class="svc" data-v="Tomadas e interruptores">🔌 Tomadas/interruptores</div><div class="svc" data-v="Iluminação">💡 Iluminação</div><div class="svc" data-v="Chuveiro elétrico">🚿 Chuveiro elétrico</div><div class="svc" data-v="Outro serviço">➕ Outro serviço</div></div>
 <label>Data</label><input id="date" type="date"><label>Horário</label><select id="time"><option value="">Selecione</option><option>08:00</option><option>09:00</option><option>10:00</option><option>11:00</option><option>13:00</option><option>14:00</option><option>15:00</option><option>16:00</option><option>17:00</option></select>
 <label>Cliente</label><input id="name" placeholder="Nome completo"><label>WhatsApp</label><input id="cliente-phone" placeholder="(14) 99999-9999"><label>Endereço</label><input id="address" placeholder="Rua, número e bairro"><label>Detalhes</label><textarea id="details" rows="3" placeholder="Descrição do serviço"></textarea><label>Valor do orçamento (R$)</label><input id="value" inputmode="decimal" placeholder="0,00"><button class="btn primary full" onclick="createBooking()">Salvar e enviar WhatsApp</button></div></section>
