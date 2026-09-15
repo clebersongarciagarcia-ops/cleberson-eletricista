@@ -77,7 +77,7 @@ main{padding:15px}.screen{display:none}.screen.active{display:block}.title{font-
 const API="/api",WA="5514996624854";let svc="",selected=new Date();selected.setHours(0,0,0,0);
 const iso=d=>{let x=new Date(d);x.setMinutes(x.getMinutes()-x.getTimezoneOffset());return x.toISOString().slice(0,10)},br=s=>{if(!s)return "";let [y,m,d]=s.split("-");return `${d}/${m}/${y}`};
 async function api(path,opt={}){let r=await fetch(API+path,{headers:{"content-type":"application/json"},...opt});if(!r.ok)throw new Error(await r.text());return r.json()}
-function show(id){document.querySelectorAll(".screen").forEach(x=>x.classList.toggle("active",x.id===id));document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("active",x.dataset.s===id));if(id==="inicio")loadHome();if(id==="agenda")loadAgenda();if(id==="clientes")loadClients();if(id==="lembretes")loadLembretes()
+function show(id){document.querySelectorAll(".screen").forEach(x=>x.classList.toggle("active",x.id===id));document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("active",x.dataset.s===id));if(id==="inicio")loadHome();if(id==="agenda")loadAgenda();if(id==="clientes")loadClients();if(id==="lembretes")loadLembretes()}
 document.querySelectorAll("nav button").forEach(x=>x.onclick=()=>show(x.dataset.s));
 document.querySelectorAll(".svc").forEach(x=>x.onclick=()=>{document.querySelectorAll(".svc").forEach(y=>y.classList.remove("active"));x.classList.add("active");svc=x.dataset.v});
 document.getElementById("date").min=iso(new Date());
