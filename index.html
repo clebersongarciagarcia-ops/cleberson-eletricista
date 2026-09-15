@@ -151,7 +151,7 @@ async function loadLembretes(){
 
     box.innerHTML=proximos.map(x=>`
       <div class="item">
-        <b>🔔 ${x.date} • ${x.time}</b>
+        <b>🔔 ${x.date===new Date().toISOString().slice(0,10)?"HOJE":x.date} • ${x.time}</b>
         <div>${x.name}</div>
         <small>${x.service} • ${x.status}</small>
       </div>
