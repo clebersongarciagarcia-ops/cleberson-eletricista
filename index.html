@@ -232,7 +232,7 @@ ${x.details?`<div>📝 ${x.details}</div>`:""}
   }catch(e){
     box.innerHTML="<div class='notice'>Não foi possível consultar os atendimentos.</div>";
   }
-  function salvarOrcamento(){
+  async function salvarOrcamento(){
   const cliente = document.getElementById("orc-cliente").value.trim();
   const phone = document.getElementById("orc-phone").value.trim();
   const servico = document.getElementById("orc-servico").value.trim();
@@ -243,25 +243,38 @@ ${x.details?`<div>📝 ${x.details}</div>`:""}
     return;
   }
 
-  const orcamento = {
-    id: Date.now(),
-    cliente,
-    phone,
-    servico,
-    valor,
-    data: new Date().toLocaleDateString("pt-BR")
-  };
+  try{
+    const resposta = await fetch("/api/budgets",{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({
+        name:cliente,
+        phone:phone,
+        service:servico,
+        description:"",
+        value:valor,
+        date:new Date().toISOString().slice(0,10),
+        status:"Em análise"
+      })
+    });
 
-  const lista = JSON.parse(localStorage.getItem("orcamentos") || "[]");
-  lista.push(orcamento);
-  localStorage.setItem("orcamentos", JSON.stringify(lista));
+    const dados = await resposta.json();
 
-  alert("Orçamento salvo com sucesso!");
+    if(!resposta.ok){
+      throw new Error(dados.error || "Erro ao salvar orçamento.");
+    }
 
-  document.getElementById("orc-cliente").value = "";
-  document.getElementById("orc-phone").value = "";
-  document.getElementById("orc-servico").value = "";
-  document.getElementById("orc-valor").value = "";
-}
+    alert("Orçamento salvo com sucesso!");
+
+    document.getElementById("orc-cliente").value="";
+    document.getElementById("orc-phone").value="";
+    document.getElementById("orc-servico").value="";
+    document.getElementById("orc-valor").value="";
+
+  }catch(e){
+    alert("Não foi possível salvar o orçamento: " + e.message);
+  }
 }</script>
 </body></html>
