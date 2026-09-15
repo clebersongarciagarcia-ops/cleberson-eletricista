@@ -92,7 +92,39 @@ export async function onRequest(context){
       ).bind("%"+q+"%","%"+q+"%").all();
 
       return json(results);
-    }
+    }if(request.method==="GET"&&path==="/budgets"){
+  const {results}=await env.DB.prepare("SELECT * FROM budgets ORDER BY id DESC").all();
+  return json(results);
+}
+
+if(request.method==="POST"&&path==="/budgets"){
+  const b=await body(request);
+  if(!String(b.name||"").trim()||!String(b.phone||"").trim()||!String(b.service||"").trim()){
+    return bad("Campos obrigatórios ausentes.");
+  }
+
+  const now=new Date().toISOString();
+
+  const r=await env.DB.prepare(`
+    INSERT INTO budgets(name,phone,service,description,value,date,status,created_at,updated_at)
+    VALUES(?,?,?,?,?,?,?,?,?)
+  `).bind(
+    b.name,
+    b.phone,
+    b.service,
+    b.description||"",
+    b.value||"0,00",
+    b.date||"",
+    b.status||"Em análise",
+    now,
+    now
+  ).run();
+
+  const x=await env.DB.prepare("SELECT * FROM budgets WHERE id=?")
+    .bind(r.meta.last_row_id).first();
+
+  return json({budget:x},201);
+}
 
     return bad("Rota não encontrada.",404);
 
