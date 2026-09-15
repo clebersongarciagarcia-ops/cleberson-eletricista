@@ -152,7 +152,7 @@ async function loadLembretes(){
     box.innerHTML=proximos.map(x=>`
       <div class="item">
         <b>🔔 ${x.date===new Date().toISOString().slice(0,10)?"HOJE":x.date} • ${x.time}</b>
-        <div>${x.name}</div>
+        <div>${x.name}</div><a href="https://wa.me/${String(x.phone).replace(/\D/g,'')}" target="_blank" class="btn">📱 WhatsApp</a>
         <small>${x.service} • ${x.status}</small>
       </div>
     `).join("");
