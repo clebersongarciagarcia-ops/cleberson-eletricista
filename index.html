@@ -120,7 +120,7 @@ main{padding:15px}.screen{display:none}.screen.active{display:block}.title{font-
     <label>Valor</label>
     <input id="orc-valor" placeholder="R$ 0,00">
 
-    <button class="btn blue" style="width:100%;margin-top:12px">
+    <button class="btn blue" onclick="salvarOrcamento()" style="width:100%;margin-top:12px">
       💾 Salvar orçamento
     </button>
   </div>
@@ -232,5 +232,36 @@ ${x.details?`<div>📝 ${x.details}</div>`:""}
   }catch(e){
     box.innerHTML="<div class='notice'>Não foi possível consultar os atendimentos.</div>";
   }
+  function salvarOrcamento(){
+  const cliente = document.getElementById("orc-cliente").value.trim();
+  const phone = document.getElementById("orc-phone").value.trim();
+  const servico = document.getElementById("orc-servico").value.trim();
+  const valor = document.getElementById("orc-valor").value.trim();
+
+  if(!cliente || !phone || !servico || !valor){
+    alert("Preencha todos os campos do orçamento.");
+    return;
+  }
+
+  const orcamento = {
+    id: Date.now(),
+    cliente,
+    phone,
+    servico,
+    valor,
+    data: new Date().toLocaleDateString("pt-BR")
+  };
+
+  const lista = JSON.parse(localStorage.getItem("orcamentos") || "[]");
+  lista.push(orcamento);
+  localStorage.setItem("orcamentos", JSON.stringify(lista));
+
+  alert("Orçamento salvo com sucesso!");
+
+  document.getElementById("orc-cliente").value = "";
+  document.getElementById("orc-phone").value = "";
+  document.getElementById("orc-servico").value = "";
+  document.getElementById("orc-valor").value = "";
+}
 }</script>
 </body></html>
