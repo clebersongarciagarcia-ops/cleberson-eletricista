@@ -26,7 +26,20 @@ main{padding:15px}.screen{display:none}.screen.active{display:block}.title{font-
 <header><div class="brand"><img src="logo.jpg"><div><h1>Cleberson Eletricista</h1><p>Gestão profissional de serviços elétricos</p></div></div></header>
 <div class="small" style="padding:0 16px 10px;text-align:center">Siga a Cleberson Eletricista e encontre o endereço do atendimento.</div><nav><button class="active" data-s="inicio">🏠 Início</button><button data-s="agenda">📅 Agenda</button><button data-s="clientes">👤 Clientes</button><button data-s="lembretes">🔔 Lembretes</button><button data-s="novo">➕ Novo</button></nav>
 <main>
-<section id="inicio" class="screen active">
+<section id="acesso" class="screen">
+  <div class="card" style="text-align:center;padding:30px 20px">
+    <h1>⚡ Cleberson Eletricista</h1>
+    <p>Gestão profissional de serviços elétricos</p>
+
+    <button class="btn blue" onclick="show('admin')" style="width:100%;margin:10px 0;padding:16px">
+      👨‍🔧 Área do Administrador
+    </button>
+
+    <button class="btn" onclick="show('cliente')" style="width:100%;margin:10px 0;padding:16px">
+      👤 Área do Cliente
+    </button>
+  </div>
+</section><section id="inicio" class="screen active">
 <div class="hero-home">
   <div class="hero-glow"></div>
   <div class="hero-top"><span class="hero-badge">⚡ ATENDIMENTO PROFISSIONAL</span></div>
