@@ -94,5 +94,32 @@ async function del(id){if(confirm("Excluir definitivamente este agendamento?")){
 async function loadClients(){try{let q=document.getElementById("q").value.trim();let d=await api("/clients"+(q?"?q="+encodeURIComponent(q):""));document.getElementById("clients").innerHTML=d.map(c=>`<div class="item"><h3>${c.name}</h3><p>📱 ${c.phone}</p><p>📍 ${c.address||"Sem endereço cadastrado"}</p><p>🧾 ${c.total_bookings} atendimento(s)</p><div class="actions"><button class="btn blue" onclick="window.open('https://wa.me/${c.phone.replace(/\\D/g,'')}','_blank')">WhatsApp</button></div></div>`).join("")||'<div class="empty">Nenhum cliente encontrado.</div>'}catch(e){document.getElementById("clients").innerHTML='<div class="empty">Banco de dados ainda não conectado.</div>'}}
 function closeModal(){document.getElementById("modal").classList.remove("open")}
 loadHome();
-</script>
+async function loadLembretes(){
+  const box=document.getElementById("lembretes-lista");
+  if(!box)return;
+  try{
+    const d=await api("/bookings");
+    const agora=new Date();
+    const proximos=d
+      .filter(x=>x.status!=="Cancelado")
+      .filter(x=>new Date(x.date+"T"+x.time)>=agora)
+      .sort((a,b)=>new Date(a.date+"T"+a.time)-new Date(b.date+"T"+b.time))
+      .slice(0,5);
+
+    if(!proximos.length){
+      box.innerHTML="<p>Nenhum próximo atendimento agendado.</p>";
+      return;
+    }
+
+    box.innerHTML=proximos.map(x=>`
+      <div class="item">
+        <b>🔔 ${x.date} • ${x.time}</b>
+        <div>${x.name}</div>
+        <small>${x.service} • ${x.status}</small>
+      </div>
+    `).join("");
+  }catch(e){
+    box.innerHTML="<p>Não foi possível carregar os lembretes.</p>";
+  }
+}</script>
 </body></html>
